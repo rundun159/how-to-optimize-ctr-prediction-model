@@ -41,9 +41,10 @@ def run_models(
 
   for num_run in range(num_runs):
     fitting_data = {
-      'history_list' : [],
-      'logloss' : [],
-      'auc' : []
+      'Train LogLoss' : [],
+      'Train AUC' : [],
+      'Test LogLoss' : [],
+      'Test AUC' : []
     }
     model = dcn.DCN(
             dcn_parallel,
@@ -58,9 +59,10 @@ def run_models(
     for epoch in range(epochs):
       history = model.fit(train, epochs=1, verbose=True)
       metrics = model.evaluate(test, return_dict=True)
-      # fitting_data['history_list'].append(history)
-      fitting_data['logloss'].append(metrics["LogLoss"])
-      fitting_data['auc'].append(metrics["AUC"])
+      fitting_data['Train LogLoss'].append(history["LogLoss"][0])
+      fitting_data['Train AUC'].append(history["AUC"][0])
+      fitting_data['Test LogLoss'].append(metrics["LogLoss"])
+      fitting_data['Test AUC'].append(metrics["AUC"])
       if (epoch % 10) == 0:
           print("{}th Epoch".format(epoch+1))
           with open(history_file_dir + history_file_name + '_num_' + str(num_run) + '.p', 'wb') as f:
