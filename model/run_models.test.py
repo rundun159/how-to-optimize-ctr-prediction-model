@@ -59,8 +59,9 @@ def run_models(
     for epoch in range(epochs):
       history = model.fit(train, epochs=1, verbose=True)
       metrics = model.evaluate(test, return_dict=True)
-      fitting_data['Train LogLoss'].append(history.history["LogLoss"][0])
-      fitting_data['Train AUC'].append(history.history["AUC"][0])
+      return history, metrics
+      fitting_data['Train LogLoss'].append(history["LogLoss"][0])
+      fitting_data['Train AUC'].append(history["AUC"][0])
       fitting_data['Test LogLoss'].append(metrics["LogLoss"])
       fitting_data['Test AUC'].append(metrics["AUC"])
       if (epoch % 10) == 0:
