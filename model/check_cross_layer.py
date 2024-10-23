@@ -26,8 +26,6 @@ def load_model(
   vocabularies,
   str_features,
   int_features,
-  train,
-  test,
   learning_rate,
   epochs,
   history_file_dir,
