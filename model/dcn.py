@@ -82,7 +82,11 @@ class DCN(tfrs.Model):
       self._deep_layers = [tf.keras.layers.Dense(layer_size, activation="relu")
         for layer_size in deep_layer_sizes]
 
-    self._logit_layer = tf.keras.layers.Dense(1)
+    self._logit_layer = tf.keras.Sequential(
+          [tf.keras.layers.Dense(1),
+            tf.keras.layers.Activation(activation='sigmoid')
+        ]
+      )
 
     self.task = tfrs.tasks.Ranking(
       loss=tf.keras.losses.BinaryCrossentropy(),
